@@ -25,4 +25,3 @@ RUN R -e "install.packages('operator.tools', dependencies = TRUE)"
 COPY / /
 ENV PORT 8080
 CMD ["/usr/bin/R", "--no-save", "--gui-none", "-f", "/api-googlenews/main.R"]
-#CMD ["Rscript", "main.R"]
