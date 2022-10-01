@@ -19,15 +19,6 @@ cors <-
     }
   }
 
-#* @preempt __first__
-#* @get /
-function(req, res) {
-  res$status <- 302
-  res$setHeader("Location", "./__docs__/")
-  res$body <- "Redirecting..."
-  res
-}
-
 #* Get data from Custom Query
 #* @param q Search term
 #* @param country Optional - Country alpha‑2 code
