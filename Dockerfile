@@ -1,5 +1,17 @@
 FROM virtualstaticvoid/heroku-docker-r:plumber
 
+RUN apt-get update -qq && apt-get install -y \
+    libssl-dev \
+    git-core \
+    libssl-dev \
+    libcurl4-gnutls-dev \
+    curl \
+    libsodium-dev \
+    libxml2-dev \
+    gcc \
+    gsl-bin \
+    libblas-dev
+
 # install pkgs
 RUN R -e "install.packages('plumber', dependencies = TRUE)"
 RUN R -e "install.packages('xml2', dependencies = TRUE)"
