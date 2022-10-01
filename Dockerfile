@@ -24,5 +24,6 @@ RUN R -e "install.packages('magrittr', dependencies = TRUE)"
 RUN R -e "install.packages('operator.tools', dependencies = TRUE)"
 
 COPY / /app
+WORKDIR /app
 ENV PORT 8080
-CMD ["Rscript", "/app/main.R"]
+CMD ["Rscript", "main.R"]
