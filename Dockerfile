@@ -24,5 +24,5 @@ RUN R -e "install.packages('magrittr', dependencies = TRUE)"
 RUN R -e "install.packages('operator.tools', dependencies = TRUE)"
 
 COPY / /
-ENV PORT 8080
+#ENV PORT 8080
 CMD ["/usr/bin/R", "--no-save", "--gui-none", "-f", "/app/main.R"]
