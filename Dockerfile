@@ -25,5 +25,5 @@ RUN R -e "install.packages('operator.tools', dependencies = TRUE)"
 
 COPY / /app
 WORKDIR /app
-ENV PORT 8080
+ENV PORT 50816
 CMD ["Rscript", "main.R"]
