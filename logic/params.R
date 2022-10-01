@@ -23,4 +23,4 @@ guide <- data.frame(
   path_ = c(headlines, world, biz.latest, ecoID, marketID, jobsID, perFinID, entrep)
   
 )
-countryCode <- read.csv('data/countryCode.csv', stringsAsFactors = F)
+countryCode <- read.csv('../data/countryCode.csv', stringsAsFactors = F)

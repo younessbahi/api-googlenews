@@ -8,7 +8,7 @@ library(magrittr)
 library(future)
 library(operator.tools)
 
-source('params.R')
+source('logic/params.R')
 source('logic/fun.R')
 source('logic/error_handling.R')
 
