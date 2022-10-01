@@ -1,3 +1,4 @@
+FROM rocker/r-ver:4.0.5
 FROM virtualstaticvoid/heroku-docker-r:plumber
 
 RUN apt-get update -qq && apt-get install -y \
@@ -13,7 +14,7 @@ RUN apt-get update -qq && apt-get install -y \
     libblas-dev
 
 # install pkgs
-RUN R -e "install.packages('plumber', dependencies = TRUE)"
+#RUN R -e "install.packages('plumber', dependencies = TRUE)"
 RUN R -e "install.packages('xml2', dependencies = TRUE)"
 RUN R -e "install.packages('tidyRSS', dependencies = TRUE)"
 RUN R -e "install.packages('tidyverse', dependencies = TRUE)"
