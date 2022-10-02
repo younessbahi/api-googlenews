@@ -41,11 +41,11 @@ custom_query <- function(q, country = 'US', res, req) {
     res
   } else if (loc_ == 'invalid country name') {
     res$status <- 503
-    res$body <- return(err_handler(1002, msg = glue::glue("[{country}] is not a valid country code.")))
+    res$body <- return(err_handler(1002, msg = glue::glue("[{country}] is not a valid country name.")))
     res
   } else if (loc_ %!in% countryCode$Alpha.2.code | is_empty(loc_)) {
     res$status <- 503
-    res$body <- return(err_handler(1003, msg = glue::glue("[{country}] is not valid country name")))
+    res$body <- return(err_handler(1003, msg = glue::glue("[{country}] is not valid country code")))
     res
   }
   
@@ -79,11 +79,11 @@ news_topics <- function(category, country = 'US', res, req) {
     res
   } else if (loc_ == 'invalid country name') {
     res$status <- 503
-    res$body <- return(err_handler(1002, msg = glue::glue("[{country}] is not a valid country code.")))
+    res$body <- return(err_handler(1002, msg = glue::glue("[{country}] is not a valid country name.")))
     res
   } else if (loc_ %!in% countryCode$Alpha.2.code | is_empty(loc_)) {
     res$status <- 503
-    res$body <- return(err_handler(1003, msg = glue::glue("[{country}] is not valid country name")))
+    res$body <- return(err_handler(1003, msg = glue::glue("[{country}] is not valid country code")))
     res
   }
   
@@ -104,3 +104,4 @@ news_topics <- function(category, country = 'US', res, req) {
   get.feed(url = url_, cat = category)
   
 }
+#todo: status 500 provision
