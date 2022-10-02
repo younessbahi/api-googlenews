@@ -5,6 +5,19 @@ plan(multisession)
 #* @apiContact list(name = "Youness Bahi", url = "http://www.example.com/support", email = "support@example.com")
 #* @apiVersion 1.0
 
+#* @filter cors
+cors <-
+  function(req, res) {
+    res$setHeader("Access-Control-Allow-Origin", "*")
+    if (req$REQUEST_METHOD == "OPTIONS") {
+      req$setHeader("Access-Control-Allow-Methods", "*")
+      req$setHeader("Access-Control-Allow-Headers", req$HTTP_ACCESS_CONTROL_REQUEST_HEADERS)
+      req$status <- 200
+      return(list())
+    } else {
+      plumber::forward()
+    }
+  }
 
 #* Get data from Custom Query
 #* @param q Search term
@@ -23,16 +36,16 @@ custom_query <- function(q, country = 'US', res, req) {
     }
   
   if (is.na(loc_)) {
-    res$status <- 1001
-    res$body <- return(err_handler(1001, var = country))
+    res$status <- 503
+    res$body <- return(err_handler(503, var = country))
     res
   } else if (loc_ == 'invalid country name') {
-    res$status <- 1003
-    res$body <- return(err_handler(1003, var = country))
+    res$status <- 503
+    res$body <- return(err_handler(503, var = country))
     res
   } else if (loc_ %!in% countryCode$Alpha.2.code | is_empty(loc_)) {
-    res$status <- 1002
-    res$body <- return(err_handler(1002, var = country))
+    res$status <- 503
+    res$body <- return(err_handler(503, var = country))
     res
   }
   

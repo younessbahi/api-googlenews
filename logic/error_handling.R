@@ -1,6 +1,6 @@
 err <-
   data.frame(
-    status    = c(1001, 1002, 1003, 1004),
+    status    = c(503, 503, 503, 503),
     error_msg = c(
       "[{var}] in [country] is too short, please enter a valid country name or country code.",
       "[{var}] is not a valid country code.",
@@ -12,7 +12,7 @@ err <-
 err_handler <-
   function(status, helper = NULL, var, res, req) {
     
-    msg <- err[err$status == { status },]$error_msg
+    msg <- err[err$status == { status },]$error_msg[1]
     
     if (! is.null(helper)) {
       return(
