@@ -55,7 +55,7 @@ custom_query <- function(q, country = 'US', res, req) {
         )
       )
     res
-  } else if (loc %!in% countryCode$Alpha.2.code | is_empty(loc_)) {
+  } else if (loc %!in% countryCode$Alpha.2.code | is_empty(loc)) {
     res$status <- 503
     res$body <-
       return(
@@ -72,7 +72,7 @@ custom_query <- function(q, country = 'US', res, req) {
   url_ <- sprintf('https://news.google.com/rss/search?q=%s&%s', q, loc_)
   
   tryCatch(
-    expr = get.feed(url = url_, cat = 'custom'),
+    expr = get.feed(url = url_, cat = ''),
     error = function (e) {
       res$status <- 500
       res$body <-
@@ -112,7 +112,7 @@ news_topics <- function(category, country = 'US', res, req) {
     res$status <- 503
     res$body <- return(err_handler(1002, msg = glue::glue("[{country}] is not a valid country name.")))
     res
-  } else if (loc %!in% countryCode$Alpha.2.code | is_empty(loc_)) {
+  } else if (loc %!in% countryCode$Alpha.2.code | is_empty(loc)) {
     res$status <- 503
     res$body <-
       return(
@@ -146,7 +146,7 @@ news_topics <- function(category, country = 'US', res, req) {
       paste0(root_, section_, path_, loc_)
   
   tryCatch(
-    expr = get.feed(url = url_, cat = category),
+    expr = get.feed(url = url_, cat = guide[guide$category_ == { category }, ]$cat_formatted),
     error = function (e) {
       res$status <- 500
       res$body <-

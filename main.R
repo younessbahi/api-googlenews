@@ -8,11 +8,11 @@ library(magrittr)
 library(future)
 library(operator.tools)
 
-source('logic/params.R')
+source('data/load.R')
 source('logic/fun.R')
 source('logic/error_handling.R')
 
-port = Sys.getenv('PORT')
+#port = Sys.getenv('PORT')
 server = plumber::plumb('api.R')
 server$run(
   host = "0.0.0.0",
