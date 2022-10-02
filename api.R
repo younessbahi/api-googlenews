@@ -26,7 +26,7 @@ cors <-
 custom_query <- function(q, country = 'US', res, req) {
   
   a2c <- countryCode[countryCode$Country == str_to_title({ country }),]$Alpha.2.code
-  loc_ <-
+  loc <-
     if (str_length(country) > 2) {
       ifelse(is_empty(a2c),'invalid country name', a2c)
     } else if (str_length(country) == 2) {
@@ -35,25 +35,56 @@ custom_query <- function(q, country = 'US', res, req) {
       NA
     }
   
-  if (is.na(loc_)) {
+  if (is.na(loc)) {
     res$status <- 503
-    res$body <- return(err_handler(1001, msg = glue::glue("[{country}] in [country] is too short, please enter a valid country name or country code.")))
+    res$body <-
+      return(
+        err_handler(
+          status = 1001,
+          msg = glue::glue("[{country}] in [country] is too short, please enter a valid country name or country code.")
+        )
+      )
     res
-  } else if (loc_ == 'invalid country name') {
+  } else if (loc == 'invalid country name') {
     res$status <- 503
-    res$body <- return(err_handler(1002, msg = glue::glue("[{country}] is not a valid country name.")))
+    res$body <-
+      return(
+        err_handler(
+          status = 1002,
+          msg = glue::glue("[{country}] is not a valid country name.")
+        )
+      )
     res
-  } else if (loc_ %!in% countryCode$Alpha.2.code | is_empty(loc_)) {
+  } else if (loc %!in% countryCode$Alpha.2.code | is_empty(loc_)) {
     res$status <- 503
-    res$body <- return(err_handler(1003, msg = glue::glue("[{country}] is not valid country code")))
+    res$body <-
+      return(
+        err_handler(
+          status = 1003,
+          msg = glue::glue("[{country}] is not valid country code")
+        )
+      )
     res
   }
   
-  loc_ <- paste0('gl=', loc_)
+  loc_ <- paste0('gl=', loc)
   
   url_ <- sprintf('https://news.google.com/rss/search?q=%s&%s', q, loc_)
   
-  get.feed(url = url_, cat = 'custom')
+  tryCatch(
+    expr = get.feed(url = url_, cat = 'custom'),
+    error = function (e) {
+      res$status <- 500
+      res$body <-
+        return(
+          err_handler(
+            status = 1005,
+            msg = glue::glue("Sorry! No news found for [{q}] in {loc}")
+          )
+        )
+      res
+    }
+  )
   
 }
 
@@ -64,7 +95,7 @@ custom_query <- function(q, country = 'US', res, req) {
 news_topics <- function(category, country = 'US', res, req) {
   
   a2c <- countryCode[countryCode$Country == str_to_title({ country }),]$Alpha.2.code
-  loc_ <-
+  loc <-
     if (str_length(country) > 2) {
       ifelse(is_empty(a2c),'invalid country name', a2c)
     } else if (str_length(country) == 2) {
@@ -73,25 +104,38 @@ news_topics <- function(category, country = 'US', res, req) {
       NA
     }
   
-  if (is.na(loc_)) {
+  if (is.na(loc)) {
     res$status <- 503
     res$body <- return(err_handler(1001, msg = glue::glue("[{country}] in [country] is too short, please enter a valid country name or country code.")))
     res
-  } else if (loc_ == 'invalid country name') {
+  } else if (loc == 'invalid country name') {
     res$status <- 503
     res$body <- return(err_handler(1002, msg = glue::glue("[{country}] is not a valid country name.")))
     res
-  } else if (loc_ %!in% countryCode$Alpha.2.code | is_empty(loc_)) {
+  } else if (loc %!in% countryCode$Alpha.2.code | is_empty(loc_)) {
     res$status <- 503
-    res$body <- return(err_handler(1003, msg = glue::glue("[{country}] is not valid country code")))
+    res$body <-
+      return(
+        err_handler(
+          status = 1003,
+          msg = glue::glue("[{country}] is not valid country code")
+        )
+      )
     res
   }
   
-  loc_ <- paste0('gl=', loc_)
+  loc_ <- paste0('gl=', loc)
   
   if (category %!in% guide$category_) {
     res$status <- 503
-    res$body <- return(err_handler(status = 1004, helper = list(guide$category_), msg = glue::glue("[{category}] is not valid, please choose from the bellow predefined topics")))
+    res$body <-
+      return(
+        err_handler(
+          status = 1004,
+          helper = list(guide$category_),
+          msg = glue::glue("[{category}] is not valid, please choose from the bellow predefined topics")
+        )
+      )
     res
   }
   
@@ -101,7 +145,19 @@ news_topics <- function(category, country = 'US', res, req) {
       select(- category_) %$%
       paste0(root_, section_, path_, loc_)
   
-  get.feed(url = url_, cat = category)
-  
+  tryCatch(
+    expr = get.feed(url = url_, cat = category),
+    error = function (e) {
+      res$status <- 500
+      res$body <-
+        return(
+          err_handler(
+            status = 1005,
+            msg = glue::glue("Sorry! No news found for [{category}] in {loc}")
+          )
+        )
+      res
+    }
+  )
 }
 #todo: status 500 provision
