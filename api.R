@@ -2,7 +2,7 @@ plan(multisession)
 
 #* @apiTitle Google News API
 #* @apiDescription A Google News API alternative
-#* @apiContact list(name = "Youness Bahi", url = "http://www.example.com/support", email = "support@example.com")
+#* @apiContact list(name = "Youness Bahi", url = "https://github.com/younessbahi/api-googlenews", email = "DAyounnessbahi@gmail.com")
 #* @apiVersion 1.0
 
 #* @filter cors
@@ -90,7 +90,6 @@ custom_query <- function(q, country = 'US', res, req) {
       res
     }
   )
-  
 }
 
 #* Get data from Google News guide
@@ -165,7 +164,6 @@ news_topics <- function(category, country = 'US', res, req) {
     }
   )
 }
-#todo: status 500 provision
 
 #* @get /topic/list
 categories <- function (req, res) {
