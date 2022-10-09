@@ -19,6 +19,11 @@ cors <-
     }
   }
 
+
+#* @assets ./docs /
+list()
+
+
 #* Get data from Custom Query
 #* @param q Search term
 #* @param country Optional - Country alpha‑2 code
@@ -161,3 +166,10 @@ news_topics <- function(category, country = 'US', res, req) {
   )
 }
 #todo: status 500 provision
+
+#* @get /topic/list
+categories <- function (req, res) {
+  list(
+    'topicID' = guide$category_
+  )
+}
