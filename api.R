@@ -2,7 +2,7 @@ plan(multisession)
 
 #* @apiTitle Google News API
 #* @apiDescription A Google News API alternative
-#* @apiContact list(name = "Youness Bahi", url = "https://github.com/younessbahi/api-googlenews", email = "DAyounnessbahi@gmail.com")
+#* @apiContact list(name = "Youness Bahi", url = "https://github.com/younessbahi/api-googlenews", email = "DAyounessbahi@gmail.com")
 #* @apiVersion 1.0
 
 #* @filter cors
