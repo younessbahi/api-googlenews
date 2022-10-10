@@ -1,4 +1,4 @@
-#Unofficial Google News API
+# Unofficial Google News API
 ![Heroku](http://heroku-badge.herokuapp.com/?app=api-googlenews&style=flat&svg=1)
 [![Heroku App Status](http://heroku-shields.herokuapp.com/api-googlenews)](https://api-googlenews.herokuapp.com)
 
