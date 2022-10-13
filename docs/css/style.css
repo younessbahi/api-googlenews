@@ -74,6 +74,7 @@ body{
     height: 100%;
     -webkit-backface-visibility: hidden;
     font-family: 'Roboto', sans-serif;
+    scroll-behavior: smooth;
 }
 strong{
     font-weight: 500;
