@@ -19,5 +19,3 @@ server$run(
   port = as.numeric(port),
   docs = TRUE
 )
-
-cat(as.numeric(port))
